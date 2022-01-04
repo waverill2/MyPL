@@ -1,0 +1,126 @@
+
+#----------------------------------------------------------------------
+# Very basic function tests
+#----------------------------------------------------------------------
+
+fun nil timesTwo(~test: int)
+  ~test = ~test * 2
+end
+
+fun nil stringTest(~str: string)
+  ~str = ~str + ~str
+end
+
+fun nil f2(~temp: int)
+  print(" in f2....." + "\n")
+  ~temp = 999
+end
+
+fun nil f1(~temp: int)
+  print(" in f1....." + "\n")
+  if ~temp > 100 then 
+    ~temp = 900
+  else 
+    f2(~temp)
+  end
+end
+
+fun int main()
+  # create a pointer
+  var r1 = 50
+  var ~test = &r1
+
+  # make sure pointer works correctly
+  print("DECLARE POINTER" + "\n")
+  print(" var r1 = 50" + "\n")
+  print(" var ~test = &r1 should print 50: " + itos(~test) + "\n")
+
+  # if r1 changes, ~test should change
+  r1 = 100
+  print(" r1 = 100 should print 100 for ~test: " + itos(~test) + "\n")
+
+  # if ~test changes, r1 should change also
+  ~test = 150
+  print(" ~test = 150 should print 150 : " + itos(~test) + "\n")
+  print(" should print 150 for r1: " + itos(r1) + "\n")
+  print("\n")
+
+  # math operations
+  print("MATH OPERATIONS" + "\n")
+  ~test = ~test + 100
+  print(" ~test = ~test + 100 should print 250: " + itos(~test) + "\n")
+  print(" r1 should also print 250: " + itos(r1) + "\n")
+
+  ~test = r1 + r1
+  print(" ~test = r1 + r1 should print 500: " + itos(~test) + "\n")
+  print(" r1 should also print 500: " + itos(r1) + "\n")
+  print("\n")
+
+  r1 = r1 - 300
+  print(" r1 = r1 - 300 should print 200: " + itos(r1) + "\n")
+  print(" ~test should also print 200: " + itos(~test) + "\n")
+  ~test = ~test - 50
+  print(" ~test = ~test - 50 should print 150: " + itos(~test) + "\n")
+  print(" r1 should also print 150: " + itos(r1) + "\n")
+  print("\n")
+
+  r1 = r1 * 2
+  print(" r1 = r1 * 2 should print 300: " + itos(r1) + "\n")
+  print(" ~test should also should print 300: " + itos(~test) + "\n")
+  ~test = ~test / 2
+  print(" ~test = ~test / 2 should print 150: " + itos(~test) + "\n")
+  print(" r1 should also should print 150: " + itos(r1) + "\n")
+  print("\n")
+
+  # other data type tests
+  print("OTHER DATA TYPES" + "\n")
+  var r2 = 3.0
+  var ~test2 = &r2
+  print(" var r2 = 3.0" + "\n")
+  print(" var ~test2 = &r2 should print 3.0: " + dtos(~test2) + "\n")
+  ~test2 = (~test2 * 2.0)/3.0
+  print(" ~test2 = (~test2 * 2.0)/3.0 should print 2.0: " + dtos(~test2) + "\n")
+  print(" r2 should print 2.0: " + dtos(r2) + "\n")
+  print("\n")
+
+  var letter = 'a'
+  var ~test3 = &letter
+  print(" var letter = 'a'" + "\n")
+  print(" var ~test3 = &letter should print a: " + ~test3 + "\n")
+  letter = 'b'
+  print(" letter = 'b', ~test3 should print 'b': " + ~test3 + "\n")
+  print("\n")
+
+  var str = "super"
+  var ~test4 = &str
+  print(" var str = super" + "\n")
+  print(" var ~test4 = &str should print super: " + ~test4 + "\n")
+  ~test4 = ~test4 + letter
+  print(" ~test4 = ~test4 + letter should print superb: " + ~test4 + "\n")
+  print(" str should print superb: " + str + "\n")
+  print("\n")
+
+  print("CONDITIONALS" + "\n")
+  if r1 < 1000 then
+    r1 = 3
+  end
+  print(" ~test should be 3: " + itos(~test) + "\n")
+  print("\n" + "\n")
+
+  print("FUNCTIONS" + "\n")
+  timesTwo(~test)
+  print(" timesTwo(~test) should print 6: " + itos(~test) + "\n")
+
+  var word = "hello"
+  var ~str = &word
+  stringTest(~str)
+  print(" stringTest(~str) should print hellohello: " + ~str + "\n")
+  print("\n")
+
+  var num = 10
+  var ~temp = &num
+  print(" f1(~temp)" + "\n")
+  f1(~temp)
+  print(" f1(~temp) should print 999: " + itos(~temp) + "\n")
+  
+end
